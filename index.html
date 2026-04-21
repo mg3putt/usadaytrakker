@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>USA Day Trakker — Canadian Snowbird Day Counter</title>
+  <meta name="description" content="Track your USA days automatically. Stay compliant with USCBP and IRS rules. Built for Canadian snowbirds."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #D52B1E;
+      --navy: #3C3B6E;
+      --white: #FFFFFF;
+      --offwhite: #F7F5F0;
+      --text: #1a1a1a;
+      --muted: #666;
+      --border: #e0ddd8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--offwhite);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(247,245,240,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--red); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding-top: 64px;
+    }
+
+    .hero-left {
+      padding: 80px 60px 80px 80px;
+    }
+
+    .hero-flag {
+      display: flex;
+      gap: 0;
+      margin-bottom: 40px;
+    }
+
+    .flag-half {
+      width: 48px;
+      height: 32px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+
+    h1 span { color: var(--red); }
+
+    .hero-desc {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 460px;
+      margin-bottom: 44px;
+      line-height: 1.75;
+    }
+
+    .cta-group {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn-store {
+      display: inline-block;
+      background: var(--text);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-store:hover {
+      background: var(--red);
+      transform: translateY(-1px);
+    }
+
+    .price-note {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hero-right {
+      background: linear-gradient(135deg, #1a1a2e 0%, #3C3B6E 50%, #D52B1E 100%);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.03) 40px,
+        rgba(255,255,255,0.03) 80px
+      );
+    }
+
+    .phone-mockup {
+      width: 260px;
+      background: #111;
+      border-radius: 40px;
+      padding: 16px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .phone-screen {
+      background: #f7f5f0;
+      border-radius: 28px;
+      overflow: hidden;
+      padding: 20px 16px 16px;
+    }
+
+    .phone-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #2d9e5f;
+      line-height: 1;
+    }
+
+    .stat-number.warning { color: #e07b39; }
+    .stat-number.danger { color: #D52B1E; }
+
+    .stat-sub {
+      font-size: 9px;
+      color: #bbb;
+      margin-top: 3px;
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .stat-row .stat-card {
+      flex: 1;
+    }
+
+    .stat-row .stat-number {
+      font-size: 22px;
+    }
+
+    .progress-bar {
+      height: 3px;
+      background: #eee;
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: #2d9e5f;
+    }
+
+    .progress-fill.warning { background: #e07b39; }
+
+    /* FEATURES */
+    .features {
+      padding: 120px 80px;
+      background: var(--white);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      line-height: 1.1;
+      max-width: 600px;
+      margin-bottom: 72px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .feature {
+      border-top: 2px solid var(--border);
+      padding-top: 28px;
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .feature h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .feature p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* RULES */
+    .rules {
+      padding: 120px 80px;
+      background: var(--offwhite);
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 64px;
+    }
+
+    .rule-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px;
+      border-left: 4px solid var(--red);
+    }
+
+    .rule-card.navy { border-left-color: var(--navy); }
+
+    .rule-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .rule-card.navy .rule-number { color: var(--navy); }
+
+    .rule-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .rule-card p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* PRIVACY STRIP */
+    .privacy-strip {
+      background: var(--text);
+      color: var(--white);
+      padding: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .privacy-strip h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .privacy-strip h2 span { color: var(--red); }
+
+    .privacy-points {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .privacy-point {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .pp-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+
+    .privacy-point p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--offwhite);
+      border-top: 1px solid var(--border);
+      padding: 40px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--red);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 100px 32px 60px; }
+      .features { padding: 80px 32px; }
+      .features-grid { grid-template-columns: 1fr; gap: 32px; }
+      .rules { padding: 80px 32px; }
+      .rules-grid { grid-template-columns: 1fr; }
+      .privacy-strip { padding: 60px 32px; grid-template-columns: 1fr; }
+      footer { padding: 32px; flex-direction: column; align-items: flex-start; }
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">USA Day Trakker</a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#rules">The Rules</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="support.html">Support</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="eyebrow">For Canadian Snowbirds</p>
+    <h1>Know your<br/><span>days.</span><br/>Stay legal.</h1>
+    <p class="hero-desc">Track your USA day count against both USCBP and IRS rules simultaneously. No surprises at the border. No unexpected tax obligations.</p>
+    <div class="cta-group">
+      <a href="https://apps.apple.com" class="btn-store">Download on the App Store</a>
+      <span class="price-note">$4.99 · iPhone</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="phone-mockup">
+      <div class="phone-screen">
+        <div class="phone-title">USA Day Trakker</div>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-label">Rolling 12 months</div>
+            <div class="stat-number">137</div>
+            <div class="stat-sub">days remaining</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Calendar year</div>
+            <div class="stat-number warning">52</div>
+            <div class="stat-sub">days remaining</div>
+            <div class="progress-bar"><div class="progress-fill warning" style="width:71%"></div></div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="margin-top:8px">
+          <div class="stat-label">IRS Substantial Presence Score</div>
+          <div class="stat-number" style="font-size:22px;color:#2d9e5f">94.3 / 183.0</div>
+          <div class="stat-sub">✓ Below threshold — safe</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <p class="section-label">What it does</p>
+  <h2 class="section-title">Everything a snowbird needs to stay compliant.</h2>
+
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-icon">📅</div>
+      <h3>Two rules, one app</h3>
+      <p>Tracks the USCBP rolling 12-month rule and the IRS calendar year rule simultaneously — two independent counters, always visible.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🧮</div>
+      <h3>Full IRS SPT formula</h3>
+      <p>Calculates your Substantial Presence Test score using the official weighted 3-year formula — the same math the IRS uses.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">✈️</div>
+      <h3>Trip simulator</h3>
+      <p>Planning a visit or wondering how long you can stay? Simulate future trips and see exactly where you'd stand before you commit.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📄</div>
+      <h3>Form 8840 summary</h3>
+      <p>A dedicated screen breaks down your day counts year by year, so you're always prepared when it's time to file your Closer Connection Exception.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Private by design</h3>
+      <p>All data lives on your device. No account required. No cloud. No tracking. Your travel history is your business.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🍁</div>
+      <h3>Built for Canadians</h3>
+      <p>Designed specifically for Canadians spending extended time in the USA — snowbirds, remote workers, and frequent travellers alike.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="rules" id="rules">
+  <p class="section-label">The rules explained</p>
+  <h2 class="section-title">Two limits. Both matter.</h2>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-number">182</div>
+      <h3>USCBP Rolling Rule</h3>
+      <p>US Customs and Border Protection limits Canadian visitors to 182 days in any rolling 365-day period. Exceed this and you risk being denied entry or losing your visitor status.</p>
+    </div>
+    <div class="rule-card navy">
+      <div class="rule-number">182</div>
+      <h3>IRS Calendar Year Rule</h3>
+      <p>The IRS tracks days per calendar year as part of the Substantial Presence Test. The weighted 3-year formula can make you a US tax resident even if you stayed under 182 days in a single year.</p>
+    </div>
+    <div class="rule-card navy" style="border-left-color: #888;">
+      <div class="rule-number" style="color:#888; font-size:32px;">1 + ⅓ + ⅙</div>
+      <h3>The SPT Formula</h3>
+      <p>All days this year, plus ⅓ of last year's days, plus ⅙ of the year before. If this total reaches 183, you may be considered a US tax resident. USA Day Trakker calculates this for you automatically.</p>
+    </div>
+    <div class="rule-card" style="border-left-color: #888;">
+      <div class="rule-number" style="color:#888; font-size:28px;">Form 8840</div>
+      <h3>Closer Connection Exception</h3>
+      <p>If you exceed the SPT threshold but maintain closer ties to Canada, you can file Form 8840 to claim the Closer Connection Exception. The app tracks the data you need to file it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY STRIP -->
+<section class="privacy-strip">
+  <div>
+    <h2>Your data stays on <span>your device.</span> Full stop.</h2>
+  </div>
+  <div class="privacy-points">
+    <div class="privacy-point">
+      <div class="pp-dot"></div>
+      <p>No account required. No sign-up. No email address collected.</p>
+    </div>
+    <div class="privacy-point">
+      <div class="pp-dot"></div>
+      <p>All trip data is stored locally using Apple's SwiftData framework — never uploaded to any server.</p>
+    </div>
+    <div class="privacy-point">
+      <div class="pp-dot"></div>
+      <p>No analytics, no tracking, no third-party SDKs of any kind.</p>
+    </div>
+    <div class="privacy-point">
+      <div class="pp-dot"></div>
+      <p>No internet connection required. The app works completely offline.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Mark Grottoli · USA Day Trakker</p>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="support.html">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>

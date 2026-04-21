@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Support — USA Day Trakker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #D52B1E;
+      --navy: #3C3B6E;
+      --white: #FFFFFF;
+      --offwhite: #F7F5F0;
+      --text: #1a1a1a;
+      --muted: #666;
+      --border: #e0ddd8;
+    }
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--offwhite);
+      line-height: 1.7;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(247,245,240,0.95);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-back { font-size: 14px; color: var(--red); text-decoration: none; }
+    .nav-back:hover { text-decoration: underline; }
+
+    .content {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 80px 40px 120px;
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+    .faq {
+      margin-bottom: 64px;
+    }
+    .faq-item {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+    }
+    .faq-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .faq-item p {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.75;
+    }
+    .contact-section {
+      background: var(--text);
+      border-radius: 16px;
+      padding: 48px;
+      color: var(--white);
+      text-align: center;
+    }
+    .contact-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .contact-section p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 32px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-contact {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .btn-contact:hover { opacity: 0.85; }
+    .disclaimer {
+      margin-top: 48px;
+      padding: 24px 28px;
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    footer {
+      background: var(--offwhite);
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer p { font-size: 13px; color: var(--muted); }
+    footer a { color: var(--red); text-decoration: none; font-size: 13px; }
+    .footer-links { display: flex; gap: 24px; }
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .content { padding: 48px 24px 80px; }
+      h1 { font-size: 36px; }
+      .contact-section { padding: 36px 24px; }
+      footer { padding: 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">USA Day Trakker</a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="content">
+  <p class="eyebrow">Help & Support</p>
+  <h1>Support</h1>
+  <p class="subtitle">Answers to common questions about USA Day Trakker.</p>
+
+  <div class="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <h3>How do I add a trip?</h3>
+      <p>Tap the <strong>Trips</strong> tab at the bottom of the screen, then tap the <strong>+</strong> button in the top right corner. Enter your arrival date. If you have already left the USA, toggle on "I have already left" to enter your departure date. Tap Save.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What is the rolling 12-month rule?</h3>
+      <p>US Customs and Border Protection (USCBP) limits Canadian visitors to 182 days in any rolling 365-day period ending today. This is different from a calendar year — it looks at the previous 365 days from the current date.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What is the IRS Substantial Presence Test?</h3>
+      <p>The IRS uses a weighted 3-year formula to determine if you qualify as a US tax resident: all days in the current year, plus ⅓ of last year's days, plus ⅙ of the days two years ago. If this total reaches 183, you may be considered a US tax resident.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What is Form 8840?</h3>
+      <p>IRS Form 8840 is the Closer Connection Exception Statement. If you exceed the Substantial Presence Test threshold but maintain closer ties to Canada (home, family, bank accounts, etc.), you can file this form to avoid being treated as a US tax resident. The 8840 tab in the app shows your day counts by year to help you prepare.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Is my data backed up?</h3>
+      <p>Your trip data is stored locally on your device using Apple's SwiftData framework. If you have iCloud backup enabled on your iPhone, your app data will be included in your iCloud backup automatically and will restore if you get a new phone.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Does the app work offline?</h3>
+      <p>Yes, completely. USA Day Trakker requires no internet connection and makes no network requests. It works entirely offline.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How do I edit or delete a trip?</h3>
+      <p>Tap the <strong>Trips</strong> tab, then tap any trip in the list to open its detail screen. From there you can edit the dates, update notes, or delete the trip entirely.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What does the trip simulator do?</h3>
+      <p>Found on the Overview tab, the simulator has two modes. "Staying in USA" shows what your day counts would be if you stay until a chosen future date. "Plan a Visit" lets you enter a hypothetical future trip from Canada and see how it would affect both your rolling and calendar year counts before you commit.</p>
+    </div>
+  </div>
+
+  <div class="contact-section">
+    <h2>Still need help?</h2>
+    <p>If you have a question not covered here, found a bug, or have a feature suggestion, get in touch.</p>
+    <a href="mailto:support@usadaytrakker.com" class="btn-contact">Email Support</a>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> USA Day Trakker is intended for personal planning purposes only and does not constitute legal, immigration, or tax advice. Always consult a qualified cross-border tax advisor or immigration attorney for advice specific to your situation.
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Mark Grottoli · USA Day Trakker</p>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="support.html">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>
